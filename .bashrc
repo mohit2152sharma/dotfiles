@@ -18,7 +18,9 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+HISTTIMEFORMAT="%d/%m/%y %H:%M"
 
+export HISTTIMEFORMAT
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -96,12 +98,45 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-#User defined aliases
-alias db='cd /mnt/c/Users/mohit/GitHub/dsqad_db/questions'
-alias cq='python3 /mnt/c/Users/mohit/GitHub/dsqadPy/create_ques.py'
-alias po='git push origin master'
-alias aa='git add --all'
+#User defined aliases and functions
+alias db='cd /mnt/c/Users/mohit/GitHub/dsqad-db-2/md/questions'
+alias cq='python3 /mnt/c/Users/mohit/GitHub/dsqad-aws-upload-data/create_md_file.py'
+alias uq='python3 /mnt/c/Users/mohit/GitHub/dsqad-aws-upload-data/main.py'
 
+#Alias to create rewiser files and upload those to dynamodb
+alias crf='python3 /mnt/c/Users/mohit/GitHub/rewiser-create-file-upload-aws/create_input_file.py'
+alias rdb='cd /mnt/c/Users/mohit/GitHub/rewiser-data/xml/to-upload'
+alias ure='python3 /mnt/c/Users/mohit/GitHub/rewiser-create-file-upload-aws/upload_to_aws.py'
+
+#alias po='git push origin master'
+#alias aa='git add --all'
+alias ..='cd ..'
+alias ...='cd ../..'
+#alias gcm='git commit -m'
+#alias ur='python3 /mnt/c/Users/mohit/GitHub/dsqadPy/update_readme.py'
+#alias cjs='python3 /mnt/c/Users/mohit/GitHub/dsqadPy/dsqad_create_daily_ques_stories.py'
+#alias crs='python3 /mnt/c/Users/mohit/GitHub/dsqadPy/jira_create_reading_stories.py'
+alias js='python3 /mnt/c/Users/mohit/GitHub/jira-automation/createJiraStories/main.py'
+alias mtd='python3 /mnt/c/Users/mohit/GitHub/jira-automation/move-to-done/main.py'
+
+# jira function to run from all everywhere
+function j() {
+	dir=$(pwd)
+	cd /mnt/c/Users/mohit/
+	jira "$@"
+	cd $dir
+}
+
+export -f j
+
+# git commit function
+function gc(){
+	git add --all
+	git commit -a -m "$1"
+	git push 
+}
+
+export -f gc
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -122,3 +157,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

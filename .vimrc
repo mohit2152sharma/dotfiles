@@ -8,7 +8,7 @@
 " '~/.vimrc', because Vim automatically enters nocompatible mode if that file
 " is present. But we're including it here just in case this config file is
 " loaded some other way (e.g. saved as `foo`, and then Vim started with
-" `vim -u foo`).
+" `vim -u foo`)
 set nocompatible
 
 " Turn on syntax highlighting.
@@ -63,6 +63,9 @@ set noerrorbells visualbell t_vb=
 " sometimes be convenient.
 set mouse+=a
 
+" add 10 lines above and below the cursor
+" set scrolloff=999
+
 " Try to prevent bad habits like using the arrow keys for movement. This is
 " not the only possible bad habit. For example, holding down the h/j/k/l keys
 " for movement, rather than using more efficient movement commands, is also a
@@ -73,8 +76,73 @@ nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
+" remapping j and k so, the screen is always centered
+nnoremap j jzz
+nnoremap k kzz
 " ...and in insert mode
 inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+" WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
+endif
+
+
+" keep the file centered in normal mode
+" augroup KeepCentered
+"	autocmd!
+"	autocmd CursorMoved * normal! zz
+" augroup END
+
+" keep the file centered in insert mode
+" inoremap <CR> <C-\><C-O><C-E><CR>
+" inoremap <BS> <BS><C-O>zz
+" nnoremap o <C-E>o
+
+" changing tab from 8 to 4 spaces
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" set autoindent settings to tru
+set autoindent
+
+" install nerdtree plugin: this plugin is used for browsing files in the directory, installed using vim-plug plugin manager
+call plug#begin()
+    Plug 'preservim/nerdtree'
+call plug#end()
+
+" set leader to space
+let mapleader="\<Space>"
+
+" remapping nerdtree shortcuts to toggle and open 
+nnoremap <leader>a :NERDTreeFocus<CR>
+nnoremap <leader>n :NERDTree<CR>
+nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+
+" close close vim automatically when nerdtree is the last window
+" exit vim if nerdtree is the only window left
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+
+" changing indent and dedent
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+" change cursor depending on mode
+:autocmd InsertEnter,InsertLeave * set cul!
+
+" install surround plugin
+call plug#begin()
+    Plug 'tpope/vim-surround'
+call plug#end()
+
