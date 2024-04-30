@@ -188,3 +188,6 @@ function envp() {
     export MY_ENV=prod
     export MY_REGION=us-west-2
 }
+
+# setup zoxide, alternative to cd
+eval "$(zoxide init zsh)"
