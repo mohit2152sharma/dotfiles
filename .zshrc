@@ -5,148 +5,59 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-# DEFAULT_USER=$USER
-# export VIRTUAL_ENV_DISABLE_PROMPT=false
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mohitsharma/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/mohitsharma/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/mohitsharma/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/mohitsharma/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# bindkey '\t' autosuggest-accept
-# bindkey '^I' complete-word
-# bindkey 'TAB' complete-word
-# bindkey ',' autosuggest-accept
+export ZSH="$HOME/.oh-my-zsh"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete tmux)
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+export ZSH_TMUX_AUTOSTART=true
+# export ZSH_TMUX_DEFAULT_SESSION_NAME=main
+export ZSH_TMUX_AUTONAME_SESSION=true
+export ZSH_TMUX_AUTOCONNECT=true
+export ZSH_TMUX_CONFIG="${HOME}/.config/tmux/tmux.conf"
+source $ZSH/oh-my-zsh.sh
 
+__conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+# # ---- functions ----
+file_dir=$HOME/github/dotfiles
+source $file_dir/zsh-funcs/f0.zsh
+source $file_dir/zsh-funcs/todo-strings.zsh
+source ~/github/dev-journal/create_rewiser_doc.sh
 
 # ---- aliases -----
 alias ..="cd .."
 alias gcb="git checkout -b"
 alias gcd="git checkout develop"
 alias gcm="git checkout master"
-
-
-# function for adding, committing and pushing to git
-function gacp() {
-    git add --all;
-    git commit -m "${(j[ ])@}";
-    git push
-}
-
+alias rv="create_rewiser_file"
+alias vim=nvim
+alias vi=nvim
+alias myiss="jira issue list -q \"sprint in openSprints() and (status='In Progress' or status='To Do')\" --plain"
+alias aocinput="$HOME/github/programming-problems/utils/download-aoc-file.bash"
+alias cpd="create_planning_doc"
+alias tf="terraform"
+alias lsd="ls -1d */"
+alias lsad="ls -l | grep ^d"
+alias src="source ~/.zshrc"
+alias bum="bun"
+alias pv="source .venv/bin/activate"
+alias pd="deactivate"
+alias gettodo="todo_alias"
+alias nrd="npm run dev"
 
 # ---- environment vars ----
 source ~/.openai
@@ -159,35 +70,52 @@ export MY_ENV=test
 export MY_REGION=ap-south-1
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-# kaggle config path
-export KAGGLE_CONFIG_DIR="/Users/mohitsharma/.config/.kaggle"
-# export python path to current dir, so relative import can work
+export KAGGLE_CONFIG_DIR="$HOME/.config/.kaggle"
 export PYTHONPATH="${PYTHONPATH}":$(pwd)
+export GOPATH=$(go env GOPATH)
+export RUN_ENV="local"
+load_dot_files ~/.e2e/config
+load_dot_files ~/.hetzner/config
+load_dot_files ~/.digitalocean/config
+load_dot_files ~/.config/longpost/config
+export TF_VAR_DO_TOKEN=$DO_TOKEN
+export TF_VAR_hcloud_token=$HETZNER_TOKEN
+# export KUBECONFIG=$HOME/github/bsky-projects/longpost/infra/digital-ocean/kubeconfig.yaml
+export KUBECONFIG=$HOME/github/bsky-projects/longpost/infra/hetzner/k3s_kubeconfig.yaml
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-# alias vim to nvim
-alias vim=nvim
+# ---- cli tools ----
+autoload -U compinit && compinit
 
-alias myiss="jira issue list -q \"sprint in openSprints() and (status='In Progress' or status='To Do')\" --plain"
-# add alias to see current sprints issue 
+source <(fzf --zsh)
 
-# start tmux by default
-# the following command checks for: tmux exists, it's interactive shell and tmux doesn't open itself in it
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    exec tmux
-fi
-
-function envt() {
-    export MY_ENV=test
-    export MY_REGION=ap-south-1
-}
-
-function envp() {
-    export MY_ENV=prod
-    export MY_REGION=us-west-2
-}
-
-# setup zoxide, alternative to cd
 eval "$(zoxide init zsh)"
+
+
+eval "$(register-python-argcomplete pipx)"
+
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+. $HOME/.cargo/env
+
+# Created by `pipx` on 2024-10-30 19:38:48
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$GOPATH/bin"
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# postgresql path
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/postgresql@17/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@17/include"
+
+# To start postgresql@17 now and restart at login:
+#   brew services start postgresql@17
+# Or, if you don't want/need a background service you can just run:
+#   LC_ALL="C" /opt/homebrew/opt/postgresql@17/bin/postgres -D /opt/homebrew/var/postgresql@17
+

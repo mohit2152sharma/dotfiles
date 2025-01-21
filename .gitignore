@@ -1,0 +1,13 @@
+.DS_Store
+.vscode
+build
+*.egg-info
+*.log
+*.logs
+**/__pycache__
+**/build
+rough
+pyrightconfig.json
+Session.vim
+.terraform
+node_modules
