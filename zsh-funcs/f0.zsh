@@ -43,3 +43,10 @@ function create_planning_doc() {
     python "$HOME"/github/saral/docs/create_planning_doc.py 
     conda deactivate
 }
+
+# create a pr on github for the current branch and default base
+function create_pr() {
+    local branch_name=$(git branch --show-current)
+    local base_branch="${1:-"saral-v4"}"
+    gh pr create --base "$base_branch" --head "$branch_name" --fill-verbose
+}

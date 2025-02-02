@@ -1,3 +1,15 @@
+# zmodload zsh/zprof # for profiling
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+ZSH_LAZY_LOAD="true"
+
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -11,31 +23,33 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export ZSH="$HOME/.oh-my-zsh"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete tmux)
+plugins=(git zsh-autosuggestions zsh-autocomplete fast-syntax-highlighting tmux)
+# plugins=(git zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete tmux)
 # plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
 export ZSH_TMUX_AUTOSTART=true
-# export ZSH_TMUX_DEFAULT_SESSION_NAME=main
+export ZSH_TMUX_DEFAULT_SESSION_NAME=main
 export ZSH_TMUX_AUTONAME_SESSION=true
 export ZSH_TMUX_AUTOCONNECT=true
 export ZSH_TMUX_CONFIG="${HOME}/.config/tmux/tmux.conf"
 source $ZSH/oh-my-zsh.sh
 
-__conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "$HOME/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="$HOME/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 
 # # ---- functions ----
 file_dir=$HOME/github/dotfiles
 source $file_dir/zsh-funcs/f0.zsh
 source $file_dir/zsh-funcs/todo-strings.zsh
+source $file_dir/zsh-funcs/svelte-route.bash
 source ~/github/dev-journal/create_rewiser_doc.sh
 
 # ---- aliases -----
@@ -58,6 +72,9 @@ alias pv="source .venv/bin/activate"
 alias pd="deactivate"
 alias gettodo="todo_alias"
 alias nrd="npm run dev"
+alias svr="create_route"
+alias cpr="create_pr"
+alias mpr="gh pr merge -s"
 
 # ---- environment vars ----
 source ~/.openai
@@ -85,7 +102,8 @@ export KUBECONFIG=$HOME/github/bsky-projects/longpost/infra/hetzner/k3s_kubeconf
 
 
 # ---- cli tools ----
-autoload -U compinit && compinit
+# Already doing at the top
+# autoload -U compinit && compinit
 
 source <(fzf --zsh)
 
@@ -93,13 +111,13 @@ eval "$(zoxide init zsh)"
 
 
 eval "$(register-python-argcomplete pipx)"
+# Created by `pipx` on 2024-10-30 19:38:48
+export PATH="$PATH:$HOME/.local/bin"
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 . $HOME/.cargo/env
 
-# Created by `pipx` on 2024-10-30 19:38:48
-export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$GOPATH/bin"
 
 # bun completions
@@ -119,3 +137,4 @@ export CPPFLAGS="-I/opt/homebrew/opt/postgresql@17/include"
 # Or, if you don't want/need a background service you can just run:
 #   LC_ALL="C" /opt/homebrew/opt/postgresql@17/bin/postgres -D /opt/homebrew/var/postgresql@17
 
+# zprof # for profiling
