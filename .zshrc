@@ -23,16 +23,17 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export ZSH="$HOME/.oh-my-zsh"
-plugins=(git zsh-autosuggestions zsh-autocomplete fast-syntax-highlighting tmux)
+plugins=(git zsh-autosuggestions zsh-autocomplete fast-syntax-highlighting)
 # plugins=(git zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete tmux)
 # plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_DEFAULT_SESSION_NAME=main
-export ZSH_TMUX_AUTONAME_SESSION=true
-export ZSH_TMUX_AUTOCONNECT=true
-export ZSH_TMUX_CONFIG="${HOME}/.config/tmux/tmux.conf"
+# export ZSH_TMUX_AUTOSTART=true
+# export ZSH_TMUX_DEFAULT_SESSION_NAME=main
+# export ZSH_TMUX_AUTONAME_SESSION=true
+# export ZSH_TMUX_AUTOCONNECT=true
+# export ZSH_TMUX_CONFIG="${HOME}/.config/tmux/tmux.conf"
 source $ZSH/oh-my-zsh.sh
 
+# Removed conda as using uv and conda slows the startup
 # __conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
 # if [ $? -eq 0 ]; then
 #     eval "$__conda_setup"
@@ -95,6 +96,8 @@ load_dot_files ~/.e2e/config
 load_dot_files ~/.hetzner/config
 load_dot_files ~/.digitalocean/config
 load_dot_files ~/.config/longpost/config
+load_dot_files ~/.config/aws/config
+load_dot_files ~/.awsrds
 export TF_VAR_DO_TOKEN=$DO_TOKEN
 export TF_VAR_hcloud_token=$HETZNER_TOKEN
 # export KUBECONFIG=$HOME/github/bsky-projects/longpost/infra/digital-ocean/kubeconfig.yaml
@@ -137,4 +140,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/postgresql@17/include"
 # Or, if you don't want/need a background service you can just run:
 #   LC_ALL="C" /opt/homebrew/opt/postgresql@17/bin/postgres -D /opt/homebrew/var/postgresql@17
 
+# This variable to tackle the navigating issue between nvim and wezterm
+[ -n "$WEZTERM_PANE" ] && export NVIM_LISTEN_ADDRESS="/tmp/nvim$WEZTERM_PANE"
+#
 # zprof # for profiling

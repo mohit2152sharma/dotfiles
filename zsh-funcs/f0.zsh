@@ -39,9 +39,9 @@ function load_dot_files() {
 
 # create a planning doc for the current sprint
 function create_planning_doc() {
-    conda activate docs
+    source "$HOME/github/saral/docs/.venv/bin/activate"
     python "$HOME"/github/saral/docs/create_planning_doc.py 
-    conda deactivate
+    deactivate
 }
 
 # create a pr on github for the current branch and default base
