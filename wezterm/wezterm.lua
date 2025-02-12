@@ -1,31 +1,3 @@
--- local wezterm = require("wezterm")
--- local config = {}
--- config.color_scheme = "Banana Blueberry"
--- config.font = wezterm.font("JetBrains Mono")
--- config.default_cwd = os.getenv("HOME") .. "/github/saral"
--- config.font_size = 14
---
--- config.leader = { key = " ", mods = "CTRL" }
--- config.keys = {
--- 	{ key = " ", mods = "CTRL", action = wezterm.action.SendKey({ key = " ", mods = "CTRL" }) },
---
--- 	-- Leader-based bindings
--- 	{ key = "c", mods = "LEADER", action = wezterm.action.SpawnTab("DefaultDomain") }, -- New tab
--- 	{ key = "w", mods = "LEADER", action = wezterm.action.CloseCurrentTab({ confirm = true }) }, -- Close tab
--- 	{ key = "h", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Left") }, -- Move to left pane
--- 	{ key = "l", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Right") }, -- Move to right pane
--- 	{ key = "j", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Down") }, -- Move to down pane
--- 	{ key = "k", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Up") }, -- Move to up pane
--- 	{ key = "v", mods = "LEADER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) }, -- Horizontal split
--- 	{ key = "s", mods = "LEADER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) }, -- Vertical split
--- 	{ key = "z", mods = "LEADER", action = wezterm.action.TogglePaneZoomState }, -- Toggle pane zoom
--- 	{ key = "x", mods = "LEADER", action = wezterm.action.CloseCurrentPane({ confirm = true }) }, -- Close pane,
--- }
---
--- config.enable_scroll_bar = true
--- return config
---
-
 -- Pull in the wezterm API
 local os = require("os")
 local wezterm = require("wezterm")
@@ -140,7 +112,7 @@ config.color_scheme = "Solarized (dark) (terminal.sexy)"
 config.enable_scroll_bar = true
 config.enable_wayland = true
 -- config.font = wezterm.font('Hack')
-config.font = wezterm.font("Monaspace Neon")
+config.font = wezterm.font("JetBrains Mono")
 config.font_size = 14.0
 config.hide_tab_bar_if_only_one_tab = true
 -- The leader is similar to how tmux defines a set of keys to hit in order to
@@ -415,5 +387,27 @@ config.keys = {
 	},
 }
 
+config.key_tables = {
+	copy_mode = {
+		{ key = "/", mods = "NONE", action = act.Search({ CaseSensitiveString = "" }) },
+		{ key = "n", mods = "NONE", action = act.CopyMode("NextMatch") },
+		{ key = "N", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
+		{ key = "h", mods = "NONE", action = act.CopyMode("MoveLeft") },
+		{ key = "j", mods = "NONE", action = act.CopyMode("MoveDown") },
+		{ key = "k", mods = "NONE", action = act.CopyMode("MoveUp") },
+		{ key = "l", mods = "NONE", action = act.CopyMode("MoveRight") },
+		{ key = "0", mods = "NONE", action = act.CopyMode("MoveToStartOfLine") },
+		{ key = "$", mods = "NONE", action = act.CopyMode("MoveToEndOfLineContent") },
+		{ key = "G", mods = "SHIFT", action = act.CopyMode("MoveToScrollbackBottom") },
+		{ key = "g", mods = "NONE", action = act.CopyMode("MoveToScrollbackTop") },
+		{ key = "b", mods = "NONE", action = act.CopyMode("MoveBackwardWord") },
+		{ key = "w", mods = "NONE", action = act.CopyMode("MoveForwardWord") },
+		{ key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
+	},
+	search_mode = {
+		{ key = "Enter", mods = "NONE", action = "ActivateCopyMode" },
+		{ key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
+	},
+}
 -- and finally, return the configuration to wezterm
 return config
