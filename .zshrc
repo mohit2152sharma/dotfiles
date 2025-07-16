@@ -31,7 +31,7 @@ plugins=(git zsh-autosuggestions zsh-autocomplete fast-syntax-highlighting)
 # export ZSH_TMUX_AUTONAME_SESSION=true
 # export ZSH_TMUX_AUTOCONNECT=true
 # export ZSH_TMUX_CONFIG="${HOME}/.config/tmux/tmux.conf"
-source $ZSH/oh-my-zsh.sh
+source "$ZSH"/oh-my-zsh.sh
 
 # Removed conda as using uv and conda slows the startup
 # __conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
@@ -48,9 +48,10 @@ source $ZSH/oh-my-zsh.sh
 
 # # ---- functions ----
 file_dir=$HOME/github/dotfiles
-source $file_dir/zsh-funcs/f0.zsh
-source $file_dir/zsh-funcs/todo-strings.zsh
-source $file_dir/zsh-funcs/svelte-route.bash
+source "$file_dir"/zsh-funcs/f0.zsh
+source "$file_dir"/zsh-funcs/todo-strings.zsh
+source "$file_dir"/zsh-funcs/svelte-route.bash
+# source $file_dir/zsh-funcs/saral.bash
 source ~/github/dev-journal/create_rewiser_doc.sh
 
 # ---- aliases -----
@@ -59,8 +60,8 @@ alias gcb="git checkout -b"
 alias gcd="git checkout develop"
 alias gcm="git checkout master"
 alias rv="create_rewiser_file"
-alias vim=nvim
-alias vi=nvim
+# alias vim=nvim
+# alias vi=nvim
 alias myiss="jira issue list -q \"sprint in openSprints() and (status='In Progress' or status='To Do')\" --plain"
 alias aocinput="$HOME/github/programming-problems/utils/download-aoc-file.bash"
 alias cpd="create_planning_doc"
@@ -76,6 +77,8 @@ alias nrd="npm run dev"
 alias svr="create_route"
 alias cpr="create_pr"
 alias mpr="gh pr merge -s"
+alias lg="lazygit"
+alias rswf="remove_swap_files"
 
 # ---- environment vars ----
 source ~/.openai
@@ -91,13 +94,17 @@ export LC_ALL=en_US.UTF-8
 export KAGGLE_CONFIG_DIR="$HOME/.config/.kaggle"
 export PYTHONPATH="${PYTHONPATH}":$(pwd)
 export GOPATH=$(go env GOPATH)
-export RUN_ENV="local"
 load_dot_files ~/.e2e/config
 load_dot_files ~/.hetzner/config
 load_dot_files ~/.digitalocean/config
 load_dot_files ~/.config/longpost/config
 load_dot_files ~/.config/aws/config
 load_dot_files ~/.awsrds
+load_dot_files ~/.config/dodo-payments/config
+# The azure config were created using command:
+# az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/{subscriptionId}"
+# These configurations are used for terraform
+load_dot_files ~/.config/azure/.config
 export TF_VAR_DO_TOKEN=$DO_TOKEN
 export TF_VAR_hcloud_token=$HETZNER_TOKEN
 # export KUBECONFIG=$HOME/github/bsky-projects/longpost/infra/digital-ocean/kubeconfig.yaml
@@ -119,7 +126,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-. $HOME/.cargo/env
+. "$HOME"/.cargo/env
 
 export PATH="$PATH:$GOPATH/bin"
 

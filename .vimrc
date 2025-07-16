@@ -29,7 +29,7 @@ set number
 set relativenumber
 
 " Always show the status line at the bottom, even if you only have one window open.
-set laststatus=2
+" set laststatus=2
 
 " The backspace key has slightly unintuitive behavior by default. For example,
 " by default, you can't backspace before the insertion point set with 'i'.
@@ -116,33 +116,38 @@ set expandtab
 set autoindent
 
 " install nerdtree plugin: this plugin is used for browsing files in the directory, installed using vim-plug plugin manager
-call plug#begin()
-    Plug 'preservim/nerdtree'
-call plug#end()
+" call plug#begin()
+"     Plug 'preservim/nerdtree'
+" call plug#end()
 
 " set leader to space
 let mapleader="\<Space>"
 
 " remapping nerdtree shortcuts to toggle and open 
-nnoremap <leader>a :NERDTreeFocus<CR>
-nnoremap <leader>n :NERDTree<CR>
-nnoremap <leader>t :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
+" nnoremap <leader>a :NERDTreeFocus<CR>
+" nnoremap <leader>n :NERDTree<CR>
+" nnoremap <leader>t :NERDTreeToggle<CR>
+" nnoremap <leader>f :NERDTreeFind<CR>
 
 " close close vim automatically when nerdtree is the last window
 " exit vim if nerdtree is the only window left
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-    \ quit | endif
+" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+"     \ quit | endif
 
 " changing indent and dedent
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
 " change cursor depending on mode
-:autocmd InsertEnter,InsertLeave * set cul!
+" :autocmd InsertEnter,InsertLeave * set cul!
+"
+if &term =~ "xterm"
+  let &t_SI = "\e[6 q"  " Solid bar in Insert mode
+  let &t_EI = "\e[2 q"  " Blinking block in Normal mode
+endif
 
 " install surround plugin
-call plug#begin()
-    Plug 'tpope/vim-surround'
-call plug#end()
+" call plug#begin()
+"     Plug 'tpope/vim-surround'
+" call plug#end()
 

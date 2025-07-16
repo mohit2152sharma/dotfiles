@@ -118,6 +118,7 @@
     # example               # example user-defined segment (see prompt_example function below)
     myenv
     myregion
+    runenv
   )
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
@@ -1656,13 +1657,19 @@
 
   function prompt_myenv() {
     if [ -n "$MY_ENV" ]; then
-      p10k segment -b 1 -f 3 -t 'MY_ENV: '$MY_ENV
+      p10k segment -b 1 -f 3 -t 'MY_ENV: '$MY_ENV'|'
+    fi
+  }
+
+  function prompt_runenv() {
+    if [ -n "$RUN_ENV" ]; then
+      p10k segment -b 1 -f 3 -t 'RUN_ENV: '$RUN_ENV
     fi
   }
 
   function prompt_myregion() {
     if [ -n "$MY_REGION" ]; then
-      p10k segment -b 3 -f 1 -t 'MY_REGION: '$MY_REGION
+      p10k segment -b 3 -f 1 -t 'MY_REGION: '$MY_REGION'|'
     fi
   }
 

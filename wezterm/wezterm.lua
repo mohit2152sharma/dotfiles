@@ -329,6 +329,13 @@ config.keys = {
 		action = act.ActivatePaneDirection("Next"),
 	},
 
+	-- Rotate panes in current tab
+	{
+		key = "r",
+		mods = "LEADER",
+		action = act.RotatePanes("CounterClockwise"),
+	},
+
 	-- ----------------------------------------------------------------
 	-- Workspaces
 	--
@@ -402,6 +409,17 @@ config.key_tables = {
 		{ key = "g", mods = "NONE", action = act.CopyMode("MoveToScrollbackTop") },
 		{ key = "b", mods = "NONE", action = act.CopyMode("MoveBackwardWord") },
 		{ key = "w", mods = "NONE", action = act.CopyMode("MoveForwardWord") },
+		{ key = "u", mods = "CTRL", action = act.ScrollByPage(-0.5) },
+		{ key = "d", mods = "CTRL", action = act.ScrollByPage(0.5) },
+		{ key = "A", mods = "SHIFT", action = act.ScrollToBottom },
+		-- Visual Selection
+		{ key = "v", mods = "NONE", action = act.CopyMode({ SetSelectionMode = "Cell" }) },
+		{ key = "V", mods = "SHIFT", action = act.CopyMode({ SetSelectionMode = "Line" }) },
+
+		-- Yank/Copy
+		{ key = "y", mods = "NONE", action = act.CopyTo("ClipboardAndPrimarySelection") },
+		{ key = "Y", mods = "SHIFT", action = act.CopyTo("ClipboardAndPrimarySelection") },
+
 		{ key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
 	},
 	search_mode = {
