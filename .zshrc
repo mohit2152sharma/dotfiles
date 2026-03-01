@@ -79,6 +79,8 @@ alias cpr="create_pr"
 alias mpr="gh pr merge -s"
 alias lg="lazygit"
 alias rswf="remove_swap_files"
+alias k="kubectl"
+alias kpo="kubectl get pods"
 
 # ---- environment vars ----
 source ~/.openai
@@ -94,6 +96,7 @@ export LC_ALL=en_US.UTF-8
 export KAGGLE_CONFIG_DIR="$HOME/.config/.kaggle"
 export PYTHONPATH="${PYTHONPATH}":$(pwd)
 export GOPATH=$(go env GOPATH)
+export GOOGLE_APPLICATION_CREDENTIALS="~/.config/gcloud/application_default_credentials.json"
 load_dot_files ~/.e2e/config
 load_dot_files ~/.hetzner/config
 load_dot_files ~/.digitalocean/config
@@ -151,3 +154,6 @@ export CPPFLAGS="-I/opt/homebrew/opt/postgresql@17/include"
 [ -n "$WEZTERM_PANE" ] && export NVIM_LISTEN_ADDRESS="/tmp/nvim$WEZTERM_PANE"
 #
 # zprof # for profiling
+
+# Added by GitButler installer
+eval "$(but completions zsh)"
